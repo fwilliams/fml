@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from .functional import sinkhorn, distance_tensor, chamfer
+from .functional import sinkhorn, pairwise_distances, chamfer
 
 
 class SinkhornLoss(nn.Module):
@@ -53,7 +53,7 @@ class SinkhornLoss(nn.Module):
         else:
             b = b.to(predicted.device)
 
-        M = distance_tensor(predicted, expected)
+        M = pairwise_distances(predicted, expected)
 
         P = sinkhorn(a, b, M, self.eps, max_iters=self.max_iters, stop_thresh=self.stop_thresh)
         loss = (M * P).sum(2).sum(1)

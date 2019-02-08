@@ -1,7 +1,7 @@
 import torch
 
 
-def distance_tensor(a: torch.Tensor, b: torch.Tensor, p=2):
+def pairwise_distances(a: torch.Tensor, b: torch.Tensor, p=2):
     """
     Compute the pairwise distance_tensor matrix between a and b which both have size [m, n, d]. The result is a tensor of
     size [m, n, n] whose entry [m, i, j] contains the distance_tensor between a[m, i, :] and b[m, j, :].
@@ -26,7 +26,7 @@ def chamfer(a, b):
     :param b: A m-sized minibatch of point sets in R^d. i.e. shape [m, n_b, d]
     :return: A [m] shaped tensor storing the Chamfer distance between each minibatch entry
     """
-    M = distance_tensor(a, b)
+    M = pairwise_distances(a, b)
     return M.min(1)[0].sum(1) + M.min(2)[0].sum(1)
 
 
