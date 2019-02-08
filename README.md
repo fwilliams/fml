@@ -1,4 +1,4 @@
-fml - Francis' Machine-Learnin' Library
+FML - Francis' Machine-Learnin' Library
 ===================================
 
 This repository is a collection of PyTorch tools for machine learning. Currently it includes 
