@@ -11,7 +11,7 @@ The structure of the library is similar to PyTorch. There is a `fml.functional` 
 ## Examples
 
 ### Computing the loss between two evenly weighted point sets
-```
+```python
 import torch
 from fml.nn import SinkhornLoss
 
@@ -32,7 +32,7 @@ loss = loss_fun(set_a, set_b)
 ```
 
 ### Computing the loss between two non evenly weighted point sets
-```
+```python
 import torch
 from fml.nn import SinkhornLoss
 
@@ -62,7 +62,7 @@ loss = loss_fun(set_a, set_b)
 
 
 ### Computing the Chamfer Distance between point sets
-```
+```python
 import torch
 from fml.nn import ChamferLoss
 
