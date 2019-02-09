@@ -5,6 +5,20 @@ This repository is a collection of PyTorch tools for machine learning. Currently
 * A numerically stable implementation of the [Sinkhorn Algorithm](https://arxiv.org/abs/1306.0895) for point sets in any dimension
 * A vectorized implementation of the Chamfer Distance between point sets in any dimension
 
+## Installation Instructions
+
+### With pip
+Simply run:
+```
+pip install git+https://github.com/fwilliams/fml
+```
+
+### With conda
+Simply run:
+```
+conda install -c fwilliams fml
+```
+
 ## Library Structure
 The structure of the library is similar to PyTorch. There is a `fml.functional` module which includes a functional interface for utilities and an `fml.nn` which includes PyTorch module implementations of utilities.
 
