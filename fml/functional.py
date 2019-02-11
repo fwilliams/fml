@@ -16,7 +16,7 @@ def pairwise_distances(a: torch.Tensor, b: torch.Tensor, p=2):
     if len(b.shape) != 3:
         raise ValueError("Invalid shape for a. Must be [m, n, d] but got", b.shape)
 
-    return (a.unsqueeze(2) - b.unsqueeze(1)).pow(p).sum(3)
+    return (a.unsqueeze(2) - b.unsqueeze(1)).abs().pow(p).sum(3)
 
 
 def chamfer(a, b):
