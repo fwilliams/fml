@@ -97,7 +97,7 @@ loss = loss_fun(set_a, set_b)
 ```
 
 ### Computing pairwise distances between point sets
-```
+```python
 import torch
 from fml.functional import pairwise_distances
 
