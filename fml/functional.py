@@ -15,7 +15,6 @@ def pairwise_distances(a: torch.Tensor, b: torch.Tensor, p=2):
         raise ValueError("Invalid shape for a. Must be [m, n, d] but got", a.shape)
     if len(b.shape) != 3:
         raise ValueError("Invalid shape for a. Must be [m, n, d] but got", b.shape)
-
     return (a.unsqueeze(2) - b.unsqueeze(1)).abs().pow(p).sum(3)
 
 
@@ -69,8 +68,9 @@ def sinkhorn(a: torch.Tensor, b: torch.Tensor, M: torch.Tensor, eps: float,
         raise ValueError("Got unexpected shape for tensor b (%s). Expected [nb, n] where M has shape [nb, m, n]." %
                          str(b.shape))
 
+    # Initialize the iteration with the change of variable
     u = torch.zeros(a.shape, dtype=a.dtype, device=a.device)
-    v = torch.zeros(b.shape, dtype=b.dtype, device=b.device)
+    v = eps * torch.log(b)
 
     M_t = torch.transpose(M, 1, 2)
 
@@ -97,7 +97,7 @@ def sinkhorn(a: torch.Tensor, b: torch.Tensor, M: torch.Tensor, eps: float,
             break
 
     log_P = (-M + u.unsqueeze(2) + v.unsqueeze(1)) / eps
-
+    
     P = torch.exp(log_P)
 
     return P

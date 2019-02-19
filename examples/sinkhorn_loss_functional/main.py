@@ -32,13 +32,14 @@ if __name__ == '__main__':
     print('Set B')
     print(set_b)
 
+    # Condition P*b = a and P^T*a = b
     a = torch.ones(set_a.shape[0:2],
             requires_grad=False,
-            device=set_a.device) / set_a.shape[1]
+            device=set_a.device)
 
     b = torch.ones(set_b.shape[0:2],
             requires_grad=False,
-            device=set_b.device) / set_b.shape[1]
+            device=set_b.device)
 
     # Compute the cost matrix 
     M = pairwise_distances(set_a, set_b, p=args.lp_distance)
@@ -47,11 +48,19 @@ if __name__ == '__main__':
     print(M)
 
     # Compute the transport matrix between each pair of sets in the minibatch with default parameters
-    P = sinkhorn(a, b, M, 1e-3)
-
+    P = sinkhorn(a, b, M, 1e-3, max_iters=5000, stop_thresh=1e-12)
+    
     print('Transport Matrix')
     print(P)
 
+    print('Condition error')
+
+    aprox_a = torch.bmm(P, b.unsqueeze(2)).squeeze(2) 
+    aprox_b = torch.bmm(P.transpose(1,2), a.unsqueeze(2)).squeeze(2) 
+
+    print('\t P*a mean error: {}'.format(torch.mean(aprox_b - b).item()))
+    print('\t P^T*b mean error: {}'.format(torch.mean(aprox_a - a).item()))
+    
     # Compute the loss
     loss = (M * P).sum(2).sum(1)
 
