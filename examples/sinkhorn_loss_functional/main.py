@@ -48,7 +48,7 @@ if __name__ == '__main__':
     print(M)
 
     # Compute the transport matrix between each pair of sets in the minibatch with default parameters
-    P = sinkhorn(a, b, M, 1e-3, max_iters=5000, stop_thresh=1e-12)
+    P = sinkhorn(a, b, M, 1e-3, max_iters=500, stop_thresh=1e-8)
     
     print('Transport Matrix')
     print(P)
