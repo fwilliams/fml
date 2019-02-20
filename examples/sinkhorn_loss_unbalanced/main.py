@@ -36,11 +36,11 @@ if __name__ == '__main__':
     print(set_b)
 
     # Condition P*1 = a and P^T*1 = b
-    a = torch.rand(set_a.shape[0:2],
+    a = torch.ones(set_a.shape[0:2],
             requires_grad=False,
             device=set_a.device)
 
-    b = torch.rand(set_b.shape[0:2],
+    b = torch.ones(set_b.shape[0:2],
             requires_grad=False,
             device=set_b.device)
     # Have the same total mass than set_a
