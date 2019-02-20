@@ -8,7 +8,9 @@ if __name__ == '__main__':
             description='Sinkhorn loss using the functional interface.')
     parser.add_argument('--batch_size', '-bz', type=int, default=3,
             help='Batch size.')
-    parser.add_argument('--set_size', '-sz', type=int, default=10,
+    parser.add_argument('--set1_size', '-sz1', type=int, default=5,
+            help='Set size.')
+    parser.add_argument('--set2_size', '-sz2', type=int, default=10,
             help='Set size.')
     parser.add_argument('--point_dim', '-pd', type=int, default=4,
             help='Point dimension.')
@@ -19,12 +21,13 @@ if __name__ == '__main__':
 
     # Set the parameters
     minibatch_size = args.batch_size
-    set_size = args.set_size
+    set1_size = args.set1_size
+    set2_size = args.set2_size
     point_dim = args.point_dim
 
     # Create two minibatches of point sets where each batch item set_a[k, :, :] is a set of `set_size` points
-    set_a = torch.rand([minibatch_size, set_size, point_dim])
-    set_b = torch.rand([minibatch_size, set_size, point_dim])
+    set_a = torch.rand([minibatch_size, set1_size, point_dim])
+    set_b = torch.rand([minibatch_size, set2_size, point_dim])
 
     print('Set A')
     print(set_a)
@@ -32,7 +35,7 @@ if __name__ == '__main__':
     print('Set B')
     print(set_b)
 
-    # Condition P*1_d = a and P^T*1_d = b
+    # Condition P*1 = a and P^T*1 = b
     a = torch.ones(set_a.shape[0:2],
             requires_grad=False,
             device=set_a.device)
@@ -40,6 +43,8 @@ if __name__ == '__main__':
     b = torch.ones(set_b.shape[0:2],
             requires_grad=False,
             device=set_b.device)
+    # Have the same total mass than set_a
+    b = b * a.sum(1, keepdim=True) / b.sum(1, keepdim=True)
 
     # Compute the cost matrix 
     M = pairwise_distances(set_a, set_b, p=args.lp_distance)

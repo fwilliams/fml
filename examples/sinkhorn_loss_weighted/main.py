@@ -32,14 +32,18 @@ if __name__ == '__main__':
     print('Set B')
     print(set_b)
 
-    # Condition P*1_d = a and P^T*1_d = b
-    a = torch.ones(set_a.shape[0:2],
+    # Condition P*1 = a and P^T*1 = b
+    a = torch.rand(set_a.shape[0:2],
             requires_grad=False,
             device=set_a.device)
+    # Keep an average mass of 1 per node
+    a = a * set_a.shape[1] / a.sum(1, keepdim=True)
 
-    b = torch.ones(set_b.shape[0:2],
+    b = torch.rand(set_b.shape[0:2],
             requires_grad=False,
             device=set_b.device)
+    # Have the same total mass than set_a
+    b = b * a.sum(1, keepdim=True) / b.sum(1, keepdim=True)
 
     # Compute the cost matrix 
     M = pairwise_distances(set_a, set_b, p=args.lp_distance)

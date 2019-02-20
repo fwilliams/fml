@@ -42,14 +42,14 @@ class SinkhornLoss(nn.Module):
         if a is None:
             a = torch.ones(predicted.shape[0:2],
                            requires_grad=False,
-                           device=predicted.device) / predicted.shape[1]
+                           device=predicted.device)
         else:
             a = a.to(predicted.device)
 
         if b is None:
             b = torch.ones(predicted.shape[0:2],
                            requires_grad=False,
-                           device=predicted.device) / predicted.shape[1]
+                           device=predicted.device)
         else:
             b = b.to(predicted.device)
 
