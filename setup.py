@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fml",
-    version="0.0.1",
+    version="0.1.0",
     author="Francis Williams",
     author_email="francis@fwilliams.info",
     description=" FML (Francis' Machine-Learnin' Library) - A collection of utilities for machine learning tasks",
