@@ -7,17 +7,25 @@ This repository is a collection of PyTorch tools for machine learning. Currently
 
 ## Installation Instructions
 
-### With pip
+### With conda (recommended)
+On Linux, Simply run:
+```
+conda install -c conda-forge fml
+```
+
+On Windows and Mac, you may need to add the PyTorch Channel before installing:
+```
+conda config --add channels pytorch
+conda install -c conda-forge fml
+```
+
+### With pip (not recommended)
 Simply run:
 ```
 pip install git+https://github.com/fwilliams/fml
 ```
 
-### With conda
-Simply run:
-```
-conda install -c fwilliams fml
-```
+
 
 ## Library Structure
 The structure of the library is similar to PyTorch. There is a `fml.functional` module which includes a functional interface for utilities and an `fml.nn` which includes PyTorch module implementations of utilities.
